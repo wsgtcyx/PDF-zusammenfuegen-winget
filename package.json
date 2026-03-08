@@ -1,6 +1,6 @@
 {
   "name": "pdf-zusammenfuegen-desktop",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Desktop-App zum lokalen Zusammenfügen von PDF-Dateien ohne Upload.",
   "main": "dist-electron/main/index.js",
@@ -24,7 +24,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.electron.json",
     "test": "vitest run",
     "verify": "pnpm run typecheck && pnpm run test && pnpm run build",
-    "dist:win": "pnpm run build && electron-builder --win nsis --x64",
+    "dist:win": "pnpm run build && electron-builder --win nsis --x64 --publish never",
     "dist:dir": "pnpm run build && electron-builder --dir",
     "write:sha256": "node ./scripts/write-sha256.mjs",
     "winget:manifest": "node ./scripts/generate-winget-manifests.mjs"

@@ -45,8 +45,8 @@ Das Repository enthält einen Generator für die Winget-Manifestdateien:
 
 ```bash
 pnpm winget:manifest -- \
-  --version 0.1.0 \
-  --installer-url https://github.com/wsgtcyx/PDF-zusammenfuegen-winget/releases/download/v0.1.0/PDF-Zusammenfuegen-Setup-0.1.0.exe \
+  --version 0.1.1 \
+  --installer-url https://github.com/wsgtcyx/PDF-zusammenfuegen-winget/releases/download/v0.1.1/PDF-Zusammenfuegen-Setup-0.1.1.exe \
   --installer-sha256 <SHA256>
 ```
 
