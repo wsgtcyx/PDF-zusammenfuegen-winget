@@ -64,7 +64,7 @@ Tags:
   - dsgvo
   - ohne-upload
 ReleaseNotes: Erste Desktop-Version fuer lokales PDF Zusammenfuegen unter Windows.
-ReleaseNotesUrl: https://github.com/wsgtcyx/winget-PDF-zusammenfuegen/releases/tag/v${version}
+ReleaseNotesUrl: https://github.com/wsgtcyx/PDF-zusammenfuegen-winget/releases/tag/v${version}
 ManifestType: defaultLocale
 ManifestVersion: ${manifestVersion}
 `;

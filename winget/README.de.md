@@ -7,7 +7,7 @@ Die eigentlichen Winget-Dateien werden erst nach einem echten GitHub Release mit
 ```bash
 pnpm winget:manifest -- \
   --version 0.1.0 \
-  --installer-url https://github.com/wsgtcyx/winget-PDF-zusammenfuegen/releases/download/v0.1.0/PDF-Zusammenfuegen-Setup-0.1.0.exe \
+  --installer-url https://github.com/wsgtcyx/PDF-zusammenfuegen-winget/releases/download/v0.1.0/PDF-Zusammenfuegen-Setup-0.1.0.exe \
   --installer-sha256 <SHA256>
 ```
 
@@ -36,4 +36,3 @@ Nach dem Release:
 2. generierte Dateien in die passende Manifest-Struktur kopieren
 3. `winget validate` lokal ausführen
 4. PR mit genau einem Paket und genau einer Version einreichen
-

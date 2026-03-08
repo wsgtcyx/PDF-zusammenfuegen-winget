@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wsgtcyx/winget-PDF-zusammenfuegen.git"
+    "url": "git+https://github.com/wsgtcyx/PDF-zusammenfuegen-winget.git"
   },
   "license": "MIT",
   "scripts": {

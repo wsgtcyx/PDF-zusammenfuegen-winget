@@ -46,7 +46,7 @@ Das Repository enthält einen Generator für die Winget-Manifestdateien:
 ```bash
 pnpm winget:manifest -- \
   --version 0.1.0 \
-  --installer-url https://github.com/wsgtcyx/winget-PDF-zusammenfuegen/releases/download/v0.1.0/PDF-Zusammenfuegen-Setup-0.1.0.exe \
+  --installer-url https://github.com/wsgtcyx/PDF-zusammenfuegen-winget/releases/download/v0.1.0/PDF-Zusammenfuegen-Setup-0.1.0.exe \
   --installer-sha256 <SHA256>
 ```
 
@@ -65,4 +65,3 @@ Die Ausgabe landet unter `winget/manifests/`.
 - `PublisherUrl` und `PackageUrl` zeigen auf [https://pdfzus.de/](https://pdfzus.de/)
 - README, App-Text und Winget-Metadaten bleiben bewusst deutsch
 - Kontakt: `support2@pdfzus.de`
-
