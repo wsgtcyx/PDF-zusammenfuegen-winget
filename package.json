@@ -1,0 +1,60 @@
+{
+  "name": "pdf-zusammenfuegen-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Desktop-App zum lokalen Zusammenfügen von PDF-Dateien ohne Upload.",
+  "main": "dist-electron/main/index.js",
+  "homepage": "https://pdfzus.de/",
+  "author": {
+    "name": "pdfzus",
+    "email": "support2@pdfzus.de",
+    "url": "https://pdfzus.de/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wsgtcyx/winget-PDF-zusammenfuegen.git"
+  },
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf dist dist-electron release coverage",
+    "dev": "concurrently -k \"vite --host 127.0.0.1 --port 5173\" \"tsc -p tsconfig.electron.json --watch --preserveWatchOutput\" \"wait-on tcp:127.0.0.1:5173 dist-electron/main/index.js dist-electron/preload/index.js && cross-env VITE_DEV_SERVER_URL=http://127.0.0.1:5173 electron .\"",
+    "build:renderer": "vite build",
+    "build:electron": "tsc -p tsconfig.electron.json",
+    "build": "pnpm run build:renderer && pnpm run build:electron",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.electron.json",
+    "test": "vitest run",
+    "verify": "pnpm run typecheck && pnpm run test && pnpm run build",
+    "dist:win": "pnpm run build && electron-builder --win nsis --x64",
+    "dist:dir": "pnpm run build && electron-builder --dir",
+    "write:sha256": "node ./scripts/write-sha256.mjs",
+    "winget:manifest": "node ./scripts/generate-winget-manifests.mjs"
+  },
+  "dependencies": {
+    "pdf-lib": "^1.17.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@types/node": "^22.13.10",
+    "@types/react": "^19.0.12",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.4.1",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "electron": "^35.0.1",
+    "electron-builder": "^26.0.12",
+    "jsdom": "^26.0.0",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.1",
+    "vitest": "^3.0.8",
+    "wait-on": "^8.0.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "electron",
+      "esbuild"
+    ]
+  }
+}

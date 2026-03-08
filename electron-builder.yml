@@ -1,0 +1,26 @@
+appId: de.pdfzus.merge
+productName: "PDF Zusammenfügen"
+asar: true
+directories:
+  output: release
+files:
+  - dist/**
+  - dist-electron/**
+  - package.json
+extraMetadata:
+  main: dist-electron/main/index.js
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+  artifactName: "PDF-Zusammenfuegen-Setup-${version}.${ext}"
+  executableName: "PDFZusammenfuegen"
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: false
+  shortcutName: "PDF Zusammenfügen"
+  uninstallDisplayName: "PDF Zusammenfügen"
+  language: 1031
+

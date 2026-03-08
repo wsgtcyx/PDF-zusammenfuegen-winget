@@ -1,0 +1,76 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  windows-release:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: PNPM aktivieren
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Node.js einrichten
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Abhängigkeiten installieren
+        run: pnpm install --frozen-lockfile
+
+      - name: Qualitätssicherung
+        run: pnpm verify
+
+      - name: NSIS-Installer bauen
+        run: pnpm dist:win
+
+      - name: SHA256-Datei erzeugen
+        shell: pwsh
+        run: |
+          $installer = Get-ChildItem release -Filter "PDF-Zusammenfuegen-Setup-*.exe" | Select-Object -First 1
+          node scripts/write-sha256.mjs $installer.FullName
+
+      - name: Smoke-Test nach Silent-Install
+        shell: pwsh
+        run: |
+          $installer = Get-ChildItem release -Filter "PDF-Zusammenfuegen-Setup-*.exe" | Select-Object -First 1
+          ./scripts/windows-install-smoke.ps1 -InstallerPath $installer.FullName
+
+      - name: Winget-Manifeste erzeugen
+        shell: pwsh
+        run: |
+          $installer = Get-ChildItem release -Filter "PDF-Zusammenfuegen-Setup-*.exe" | Select-Object -First 1
+          $sha = (Get-FileHash $installer.FullName -Algorithm SHA256).Hash
+          $version = "${{ github.ref_name }}".TrimStart("v")
+          $url = "https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/$($installer.Name)"
+          node scripts/generate-winget-manifests.mjs --version $version --installer-url $url --installer-sha256 $sha
+
+      - name: Release Notes vorbereiten
+        shell: pwsh
+        run: |
+          $version = "${{ github.ref_name }}".TrimStart("v")
+          (Get-Content RELEASE_NOTES.de.md -Raw).Replace('${VERSION}', $version) | Set-Content release/release-notes.md
+
+      - name: Winget-Manifeste als Artefakt hochladen
+        uses: actions/upload-artifact@v4
+        with:
+          name: winget-manifests
+          path: winget/manifests/**
+
+      - name: Release veröffentlichen
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: release/release-notes.md
+          files: |
+            release/PDF-Zusammenfuegen-Setup-*.exe
+            release/SHA256SUMS.txt
