@@ -78,8 +78,6 @@ InstallModes:
   - silent
   - silentWithProgress
 UpgradeBehavior: install
-Commands:
-  - PDFZusammenfuegen
 ReleaseDate: ${new Date().toISOString().slice(0, 10)}
 Installers:
   - Architecture: x64
