@@ -29,19 +29,26 @@ const packageJson = JSON.parse(
 const publisher = "pdfzus";
 const packageName = "PDF Zusammenfügen";
 const manifestVersion = "1.10.0";
+const createdBy = "# Created by pdfzus winget manifest generator";
 
 await mkdir(outputDir, { recursive: true });
 
 const baseName = packageIdentifier.split(".").slice(-1)[0];
 
-const versionManifest = `PackageIdentifier: ${packageIdentifier}
+const versionManifest = `${createdBy}
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.version.${manifestVersion}.schema.json
+
+PackageIdentifier: ${packageIdentifier}
 PackageVersion: ${version}
 DefaultLocale: de-DE
 ManifestType: version
 ManifestVersion: ${manifestVersion}
 `;
 
-const localeManifest = `PackageIdentifier: ${packageIdentifier}
+const localeManifest = `${createdBy}
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.${manifestVersion}.schema.json
+
+PackageIdentifier: ${packageIdentifier}
 PackageVersion: ${version}
 PackageLocale: de-DE
 Publisher: ${publisher}
@@ -69,7 +76,10 @@ ManifestType: defaultLocale
 ManifestVersion: ${manifestVersion}
 `;
 
-const installerManifest = `PackageIdentifier: ${packageIdentifier}
+const installerManifest = `${createdBy}
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.${manifestVersion}.schema.json
+
+PackageIdentifier: ${packageIdentifier}
 PackageVersion: ${version}
 InstallerType: nullsoft
 Scope: user
